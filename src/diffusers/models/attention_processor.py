@@ -1502,7 +1502,7 @@ class LoRAAttnProcessor(nn.Module):
             self_cls_name,
             "0.26.0",
             (
-                f"Make sure use {self_cls_name[4:]} instead by setting"
+                f"Make sure to use {self_cls_name[4:]} instead by setting"
                 "LoRA layers to `self.{to_q,to_k,to_v,to_out[0]}.lora_layer` respectively. This will be done automatically when using"
                 " `LoraLoaderMixin.load_lora_weights`"
             ),
@@ -1568,7 +1568,7 @@ class LoRAAttnProcessor2_0(nn.Module):
             self_cls_name,
             "0.26.0",
             (
-                f"Make sure use {self_cls_name[4:]} instead by setting"
+                f"Make sure to use {self_cls_name[4:]} instead by setting"
                 "LoRA layers to `self.{to_q,to_k,to_v,to_out[0]}.lora_layer` respectively. This will be done automatically when using"
                 " `LoraLoaderMixin.load_lora_weights`"
             ),
