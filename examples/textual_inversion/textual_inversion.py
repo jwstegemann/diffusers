@@ -139,6 +139,8 @@ def log_validation(text_encoder, tokenizer, unet, vae, args, accelerator, weight
         with torch.autocast("cuda"):
             image = pipeline(args.validation_prompt, num_inference_steps=25, generator=generator).images[0]
         images.append(image)
+        # save image
+        image.save(f"{args.output_dir}/validation_{epoch}.png", 'PNG')
 
     for tracker in accelerator.trackers:
         if tracker.name == "tensorboard":
