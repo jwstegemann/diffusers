@@ -111,6 +111,17 @@ These are textual inversion adaption weights for {base_model}. You can find some
     with open(os.path.join(repo_folder, "README.md"), "w") as f:
         f.write(yaml + model_card)
 
+def read_and_join(filename):
+    # Check if the file exists
+    if not os.path.exists(filename):
+        print(f"The file {filename} does not exist.")
+        return ""
+
+    # If file exists, proceed with reading and joining
+    with open(filename, 'r') as file:
+        joined_string = ','.join(line.strip() for line in file)
+    
+    return joined_string
 
 def log_validation(text_encoder, tokenizer, unet, vae, args, accelerator, weight_dtype, epoch):
     logger.info(
@@ -505,13 +516,16 @@ class TextualInversionDataset(Dataset):
 
     def __getitem__(self, i):
         example = {}
-        image = Image.open(self.image_paths[i % self.num_images])
+        image_path = self.image_paths[i % self.num_images]
+        image = Image.open(image_path)
 
         if not image.mode == "RGB":
             image = image.convert("RGB")
 
         placeholder_string = self.placeholder_token
-        text = random.choice(self.templates).format(placeholder_string)
+        filewords = read_and_join(os.path.splitext(image_path)[0] + '.txt')
+        text = random.choice(self.templates).format(placeholder_string, filewords)
+        print(f"get {text} from dataset for {image_path}")
 
         example["input_ids"] = self.tokenizer(
             text,
