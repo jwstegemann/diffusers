@@ -432,7 +432,7 @@ def parse_args():
 
 
 imagenet_templates_small = [
-    "a photo of a {}"
+    "a {}"
 ]
 
 imagenet_style_templates_small = [
