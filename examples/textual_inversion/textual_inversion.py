@@ -528,7 +528,7 @@ class TextualInversionDataset(Dataset):
             image = image.convert("RGB")
 
         placeholder_string = self.placeholder_token
-        #bc
+        #bcddddddd
         filewords = self.captions[i % self.num_images]
         #print("filewords", filewords)
         text = random.choice(self.templates).format(placeholder_string, filewords)
