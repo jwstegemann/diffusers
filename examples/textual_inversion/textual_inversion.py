@@ -113,7 +113,7 @@ These are textual inversion adaption weights for {base_model}. You can find some
 
 def read_and_join(filename):
     print("read", filename)
-    # Check if the file exists
+    # Check if the file existss
     if not os.path.exists(filename):
         print(f"The file {filename} does not exist.")
         return ""
