@@ -112,7 +112,7 @@ These are textual inversion adaption weights for {base_model}. You can find some
         f.write(yaml + model_card)
 
 def read_and_join(filename):
-    print("read", filename)
+    #print("read", filename)
     # Check if the file existss
     if not os.path.exists(filename):
         print(f"The file {filename} does not exist.")
@@ -530,9 +530,9 @@ class TextualInversionDataset(Dataset):
         placeholder_string = self.placeholder_token
         #bc
         filewords = self.captions[i % self.num_images]
-        print("filewords", filewords)
+        #print("filewords", filewords)
         text = random.choice(self.templates).format(placeholder_string, filewords)
-        print(f"get {text} from dataset for {image_path}")
+        #print(f"get {text} from dataset for {image_path}")
 
         example["input_ids"] = self.tokenizer(
             text,
