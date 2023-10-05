@@ -494,6 +494,10 @@ class TextualInversionDataset(Dataset):
         self.flip_p = flip_p
 
         self.image_paths = [os.path.join(self.data_root, file_path) for file_path in list(filter(lambda f: not f.lower().endswith('.txt'), os.listdir(self.data_root)))]
+        self.caption_paths = [os.path.splitext(file_path)[0] + '.txt' for file_path in self.image_paths]
+
+        print(self.image_paths)
+        print(self.caption_paths)
 
         self.num_images = len(self.image_paths)
         self._length = self.num_images
@@ -523,7 +527,8 @@ class TextualInversionDataset(Dataset):
             image = image.convert("RGB")
 
         placeholder_string = self.placeholder_token
-        filewords = read_and_join(os.path.splitext(image_path)[0] + '.txt')
+        filewords = read_and_join(self.image_paths[i % self.num_images])
+        print("filewords", filewords)
         text = random.choice(self.templates).format(placeholder_string, filewords)
         print(f"get {text} from dataset for {image_path}")
 
