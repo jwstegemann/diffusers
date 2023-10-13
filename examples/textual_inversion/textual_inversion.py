@@ -140,7 +140,7 @@ def log_validation(text_encoder, tokenizer, unet, vae, args, accelerator, weight
         revision=args.revision,
         torch_dtype=weight_dtype,
     )
-    pipeline.scheduler = DPMSolverMultistepScheduler.from_config(pipeline.scheduler.config)
+    pipeline.scheduler = DPMSolverMultistepScheduler.from_config(pipeline.scheduler.config, use_karras_sigmas='true', algorithm_type='sde-dpmsolver++')
     pipeline = pipeline.to(accelerator.device)
     pipeline.set_progress_bar_config(disable=True)
 
@@ -149,7 +149,7 @@ def log_validation(text_encoder, tokenizer, unet, vae, args, accelerator, weight
     images = []
     for _ in range(args.num_validation_images):
         with torch.autocast("cuda"):
-            image = pipeline(args.validation_prompt, num_inference_steps=25, generator=generator).images[0]
+            image = pipeline(args.validation_prompt, num_inference_steps=35, generator=generator).images[0]
         images.append(image)
         # save image
         image.save(f"{args.output_dir}/validation_{epoch}.png", 'PNG')
